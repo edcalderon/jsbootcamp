@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "4e9042dc-493c-4634-ba5e-827094bdc25f",
+		"name": "Parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all vehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/parking",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"parking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create vehicle",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"damir\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/parking",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"parking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update vehicle",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"juan\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/parking/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"parking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one vehicle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/parking/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"parking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete vehicle",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/parking/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"parking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

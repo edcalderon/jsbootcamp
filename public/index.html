@@ -1,26 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Parking app</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+    <div class="main">
+        
+        <div class="header">
+            <img src="images/tittle.png" alt="">
+            <img src="images/dots.png" alt="">
+        </div>
+        <div class="container">
+            <form id="booking-form" class="booking-form" method="POST">
+                <div class="form-group">
+                    <div class="form-destination">
+                        <label for="destination">Plate number</label>
+                        <input type="text" id="destination" name="destination" placeholder="EG. MLJ974" />
+                    </div>
+                    <div class="form-destination">
+                        <label for="destination">Model</label>
+                        <input type="text" id="destination" name="destination" placeholder="EG. 2006" />
+                    </div>
+                    <div class="form-destination2">
+                        <label for="destination">Owner name</label>
+                        <input type="text" id="destination" name="destination" placeholder="EG. Pepito perez" />
+                    </div>
+                    <div class="form-destination2">
+                        <label for="destination">Owner phone</label>
+                        <input type="text" id="destination" name="destination" placeholder="EG. 30045169" />
+                    </div>
+                    <div class="form-date-from form-icon">
+                        <label for="date_from">Arrival date</label>
+                        <input type="text" id="date_from" class="date_from" placeholder="Pick " />
+                        <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
+                    </div>
+                    <div class="form-date-to form-icon">
+                        <label for="date_to">Hour</label>
+                        <input type="time" id="timeago" class="timeago" placeholder="Pick " />
+                        <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
+                    </div>
+                    <!--<div class="form-quantity">
+                        <label for="quantity">Quantity</label>
+                        <span class="modify-qty plus" onClick="Tang()"><i class="zmdi zmdi-chevron-up"></i></span>
+                        <input type="number" name="quantity" id="quantity" value="0" min="0" class="nput-text qty text">
+                        <span class="modify-qty minus" onClick="Giam()"><i class="zmdi zmdi-chevron-down"></i></span>
+                    </div> -->
+                    <div class="form-submit">
+                        <input type="submit" id="submit" class="submit" value="Enter" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="js/notify.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
         
         $(function(){
             let apiUrl = 'http://localhost:5000'
-            document.write('Testing server connection...')
+            $.notify("Testing server connection ...",{className:"info", position:"right bottom"})
             $.get(apiUrl + '/parking')
-                .done(() => document.write('...OK'))
-                .fail(() => document.write('...FAILED'))
+                .done(() => $.notify( "Conection stablished", {className:"success", position:"right bottom"}))
+                .fail(() => document.write('Conection FAILED',{className:"error", position:"right bottom"}))
         })
+        
     </script>
-</body>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

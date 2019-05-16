@@ -74,9 +74,7 @@ express()
     let id = req.params.id
     let vehicle = vehicles.get(id)
     let data = vehicles.remove(vehicle)
-    res.redirect('/', {
-        list: vehicles
-    });
+    res.json({data})
 })
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
@@ -96,4 +94,3 @@ function deleteRecord(entity, id) {
     entity.data.splice(idx, 1)
 }
 
-module.exports = vehicles;

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="css/w3css.min.css">
 
     <!-- Main css -->
     <link rel="stylesheet" href="css/style.css">
@@ -23,7 +24,7 @@
         
         <div class="header">
             <img src="images/tittle.png" alt="">
-            <img src="images/dots.png" alt="">
+            <img src="images/reload.png" class="reload" alt="">
         </div>
         <div class="limiter">
         <div class="container-table100">
@@ -94,34 +95,34 @@
                 <div class="form-group">
                     <div class="form-destination">
                         <label for="destination">Plate number</label>
-                        <input type="text" id="destination" name="plateNumber" placeholder="EG. MLJ974" />
+                        <input type="text" id="plateNumber" name="plateNumber" placeholder="EG. MLJ974" />
                     </div>
                     <div class="form-destination">
                         <label for="destination">Model</label>
-                        <input type="text" id="destination" name="model" placeholder="EG. 2006" />
+                        <input type="text" id="model" name="model" placeholder="EG. 2006" />
                     </div>
                     
                     <div class="form-destination2">
                         <label for="destination">Owner name</label>
-                        <input type="text" id="destination" name="ownerName" placeholder="EG. Pepito perez" />
+                        <input type="text" id="ownerName" name="ownerName" placeholder="EG. Pepito perez" />
                     </div>
                     <div class="form-destination2">
                         <label for="destination">Owner phone</label>
-                        <input type="text" id="destination" name="ownerPhone" placeholder="EG. 30045169" />
+                        <input type="text" id="ownerPhone" name="ownerPhone" placeholder="EG. 30045169" />
                     </div>
                     <div class="form-date-from form-icon">
                         <label for="date_from">Arrival date</label>
-                        <input type="text" id="date_from" name="arrivalDate" class="arrivalDate" placeholder="Pick " />
+                        <input type="text" id="arrivalDate" name="arrivalDate" class="arrivalDate" placeholder="Pick " />
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-date-to form-icon">
                         <label for="date_to">In Hour</label>
-                        <input type="time" id="time"  name="inHour" class="hourIn" placeholder="Pick " />
+                        <input type="time" id="inHour"  name="inHour" class="inHour" placeholder="Pick " />
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-date-to form-icon">
                         <label for="date_to">Out Hour</label>
-                        <input type="time" id="time" name="outHour" class="hourIn" placeholder="Pick " />
+                        <input type="time" id="outHour" name="outHour" class="outHour" placeholder="Pick " />
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-submit">
@@ -133,13 +134,17 @@
     </div>
 
   <!-- delete Modal-->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Warnning, do you want to delete a entry?</h2>
+      </header>
+      <div class="w3-container">
+        <button class="w3-red">Cancel</button>
+        <button class="w3-green">Procced</button>
+      </div>
     </div>
   </div>
 
@@ -152,74 +157,63 @@
         
         $(function(){
             let apiUrl = 'http://localhost:5000'
+            let id = ""
             $.notify("Testing server connection ...",{className:"info", position:"right bottom"})
             $.get(apiUrl + '/parking')
                 .done(() => $.notify( "Conection stablished", {className:"success", position:"right bottom"}))
                 .fail(() => $.notify('Conection FAILED',{className:"error", position:"right bottom"}))
             $(".fa.fa-trash").on('click', function(){
-                let id = $(this).data("id")
-
-                //  // 1. Creating new XMLHttpRequest object
-                // var xhr = new XMLHttpRequest();
-                // var a = performance.now();
-                // // 2. Configuring it: GET-request to 'example.json' URL
-                // xhr.open('DELETE', `/parking/${id}`, false);
-                // // 3. Sending it
-                // xhr.send();
-                // console.log( xhr.responseText ); 
-                // var b = performance.now();
-                // console.log('It took ' + (b - a) + ' ms.');
-                // // 4. if response status code is not 200 then it is an error
-                // if (xhr.status != 200) {
-                //   // error handling
-                //   console.log( xhr.status + ': ' + xhr.statusText ); // Output example: 404: Not Found
-                // } else {
-                //   // show the result
-                //   console.log( xhr.responseText ); // response Text.
-                // }
-                // alert("vehiculo borrado")
-                
-                // var xhr = new XMLHttpRequest();
-                // xhr.open('DELETE', `/parking/${id}`,  true);
-
-                // var a = performance.now();
-
-                // xhr.send(); // (1)
-
-                // console.log( xhr.responseText );
-
-                // var b = performance.now();
-                // console.log('It took ' + (b - a) + ' ms.');
-
-                // xhr.onreadystatechange = function() { // (3)
-                //   if (xhr.readyState != 4) return;
-                  
-                //   if (xhr.status != 200) {
-                //     console.log(xhr.status + ': ' + xhr.statusText);
-                //   } else {
-                //     console.log(xhr.status);
-                //     console.log(xhr.responseText);
-                //   }
-                // }
-                // alert("vehiculo borrado")
-                var xhr = new XMLHttpRequest();
-
-                console.log('currentReadyState is:', xhr.readyState)
-
-                xhr.open('DELETE', `/parking/${id}`, true);
-
-                xhr.send(); // (1)
-
-                console.log('currentReadyState is:', xhr.readyState)
-                xhr.onreadystatechange = function() { // (3)
-                  console.log('currentReadyState is:', xhr.readyState)
-                }
-                alert("vehiculo borrado")
-
+                id = $(this).data("id")    
+                console.log(id)      
+                $('.w3-modal').show()                
             }) 
-
-        })
-        
+            $(".fa.fa-pencil").on('click', function(){   
+                id = $(this).data("id")   
+                $('#plateNumber').val(this.plateNumber)
+                console.log(id)   
+                let rowdata = $(this).parent().parent().parent().children()   
+                let extractedData = []  
+                Array.prototype.forEach.call(rowdata, function(el) {
+                    extractedData.push(el.innerText);
+                });
+                $("#plateNumber").val(extractedData[0])
+                $("#model").val(extractedData[1])
+                $("#ownerName").val(extractedData[2])
+                $("#ownerPhone").val(extractedData[3])
+                $("#arrivalDate").val(extractedData[4])
+                $("#inHour").val(extractedData[5])
+                $("#outHour").val(extractedData[6])
+            
+            }) 
+            $(".w3-green").on('click', function(){
+                var xhr = new XMLHttpRequest();
+                xhr.open('delete', `/parking/${id}`, true);
+                var a = performance.now();
+                xhr.send(); 
+                var b = performance.now();
+                console.log('It took ' + (b - a) + ' ms.');
+                xhr.onreadystatechange = function() { // (3)
+                  if (xhr.readyState != 4) return;                
+                  if (xhr.status != 200) {
+                    console.log(xhr.status + ': ' + xhr.statusText);
+                  } else {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                  }
+                }
+                $('.w3-modal').hide() 
+                setTimeout(function(){ 
+                    window.location.href = '/';
+                }, 1500);
+                                  
+            })
+            $(".w3-red").on('click', function(){
+               $('.w3-modal').hide()                     
+            })
+            $(".reload").on('click', function(){
+               window.location.href = '/';                   
+            })
+        })        
     </script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

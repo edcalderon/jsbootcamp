@@ -176,23 +176,40 @@
                 Array.prototype.forEach.call(rowdata, function(el) {
                     extractedData.push(el.innerText);
                 });
-                $("#plateNumber").val(extractedData[0])
-                $("#model").val(extractedData[1])
-                $("#ownerName").val(extractedData[2])
-                $("#ownerPhone").val(extractedData[3])
-                $("#arrivalDate").val(extractedData[4])
-                $("#inHour").val(extractedData[5])
-                $("#outHour").val(extractedData[6])
+                let np = $("#plateNumber").val(extractedData[0])
+                let md = $("#model").val(extractedData[1])
+                let own = $("#ownerName").val(extractedData[2])
+                let owp = $("#ownerPhone").val(extractedData[3])
+                let arrd = $("#arrivalDate").val(extractedData[4])
+                let inh = $("#inHour").val(extractedData[5])
+                let outh = $("#outHour").val(extractedData[6])
                 $("#booking-form").attr('class',`edit-form`)
-                $("#booking-form").attr('action',`/parking/${id}?_method="PUT"`)
-                $(".form-submit").append(`<input type="hidden" name="_method" value="PUT"/>`)
+                $("#booking-form").attr('action'," ")
+                $("#booking-form").attr('method'," ")
+                //$(".form-submit").append(`<input type="hidden" name="_method" value="PUT"/>`)
                 $("#submit").attr('value',"EDIT")
-                $('#booking-form').submit(function() {
-                // Get all the forms elements and their values in one step
-                    var values = $(this).serialize();
-                    console.log(values)
+                // $("#submit").attr('type'," ")
+                // $("#submit").attr('class'," ")
+                $("#submit").on('click', function(){
+                    let query = `plateNumber=${np}&model=${md}&ownerName=${own}&ownerPhone=${owp}&arrivalDate=${arrd}&inHour=${inh}&outHour=${outh}`
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('put', `/parking/${id}&${query}`, true);
+                    var a = performance.now();
+                    xhr.send(); 
+                    var b = performance.now();
+                    console.log('It took ' + (b - a) + ' ms.');
+                    xhr.onreadystatechange = function() { // (3)
+                      if (xhr.readyState != 4) return;                
+                      if (xhr.status != 200) {
+                        console.log(xhr.status + ': ' + xhr.statusText);
+                      } else {
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                      }
+                    }
+                 })
 
-                });
+
                            
                 
             }) 

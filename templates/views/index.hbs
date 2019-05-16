@@ -183,7 +183,18 @@
                 $("#arrivalDate").val(extractedData[4])
                 $("#inHour").val(extractedData[5])
                 $("#outHour").val(extractedData[6])
-            
+                $("#booking-form").attr('class',`edit-form`)
+                $("#booking-form").attr('action',`/parking/${id}?_method="PUT"`)
+                $(".form-submit").append(`<input type="hidden" name="_method" value="PUT"/>`)
+                $("#submit").attr('value',"EDIT")
+                $('#booking-form').submit(function() {
+                // Get all the forms elements and their values in one step
+                    var values = $(this).serialize();
+                    console.log(values)
+
+                });
+                           
+                
             }) 
             $(".w3-green").on('click', function(){
                 var xhr = new XMLHttpRequest();

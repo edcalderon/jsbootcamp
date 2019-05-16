@@ -62,6 +62,7 @@ express()
 .put('/parking/:id',  (req, res) => {
     let id = req.params.id
     let data = req.body;
+    console.log(data)
     let vehicle = vehicles.get(id)
     for(let attr in data){
         if (attr in vehicle)

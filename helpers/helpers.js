@@ -22,9 +22,10 @@ hbs.registerHelper('listVehicles', (list) => {
             <td class="cell100 column6">${inHour}</td>
             <td class="cell100 column7">${outHour}</td>
             <td class="cell100 column8">
-                <div class="inblock">
+                <div class="inblock" >
                     <i id="edit" data-id=${id} class="fa fa-pencil" ></i>
                     <i id="delete" data-id=${id} class="fa fa-trash"></i>
+                    <input type="checkbox" data-id=${id} class="check"/> 
                 </div>
             </td>
             </tr>`               

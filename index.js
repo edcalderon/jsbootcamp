@@ -50,9 +50,8 @@ express()
     let ownerPhone = req.body.ownerPhone
     let arrivalDate = req.body.arrivalDate
     let inHour = req.body.inHour
-    let data = {plateNumber:plateNumber.toUpperCase(),model:model,ownerName:ownerName.toUpperCase(),ownerPhone:ownerPhone,arrivalDate:arrivalDate,inHour:inHour,outHour:''}
-    let vehicle = vehicles.insert(data)
-    
+    let data = {plateNumber:plateNumber.toUpperCase(),model:model,ownerName:ownerName.toUpperCase(),ownerPhone:ownerPhone,arrivalDate:arrivalDate,inHour:inHour,outHour:''} 
+    let vehicle = vehicles.insert(data)   
     res.render('index', {
         list: vehicles
     });
@@ -61,6 +60,7 @@ express()
 
 .put('/parking/:id',  (req, res) => {
     let id = req.params.id
+    console.log(id)
     let data = req.body;
     console.log(data)
     let vehicle = vehicles.get(id)
@@ -70,6 +70,9 @@ express()
     }
     vehicle = vehicles.update(vehicle)
     res.json({vehicle})
+    res.render('index', {
+        list: vehicles
+    });
 })
 .delete('/parking/:id',  (req, res) => {
     let id = req.params.id

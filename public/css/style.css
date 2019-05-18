@@ -163,7 +163,10 @@ input[type=radio] {
   -moz-appearance: radio !important;
   -webkit-appearance: radio !important;
   -o-appearance: radio !important;
-  -ms-appearance: radio !important; }
+  -ms-appearance: radio !important; 
+   }
+
+
 
 img {
   max-width: 120%;
@@ -173,6 +176,16 @@ img {
   background-color: #f8ba0f;
   border-radius: 50%;
 }  
+#myInput {
+  background-image: url('/images/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
 
 figure {
   margin: 0; }
@@ -198,7 +211,7 @@ h1 {
 
 .inblock{
   display: flex;
-  margin: 0 2.5px 0 0;
+  margin: 0 3.5px 0 0;
 } 
 .fa { padding-right: 0.5em; }
 
@@ -298,6 +311,15 @@ input {
   .submit:hover {
     background-color: #ce9906; }
 
+.submitEdit {
+  background: #0066ff;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 23px;
+  padding: 15px 20px;
+  cursor: pointer; }
+  .submit:hover {
+    background-color: #ce9906; }
 label {
   font-size: 12px;
   font-weight: 500;
@@ -419,7 +441,10 @@ button {
   outline: none !important;
   border: none;
   background: transparent;
+  border-radius: 10px;
 }
+
+
 
 button:hover {
   cursor: pointer;

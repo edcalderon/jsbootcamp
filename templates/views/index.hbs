@@ -20,78 +20,49 @@
 </head>
 <body>
 
-    <div class="main">
-        
+    <div class="main">       
         <div class="header">
             <img src="images/tittle.png" alt="">
             <img src="images/reload.png" class="reload" alt="">
         </div>
         <div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table100 ver2 m-b-110">
-                    <div class="table100-head">
-                        <table>
-                            <thead>
-                                <tr class="row100 head">
-                                    <th class="cell100 column1">Plate number</th>
-                                    <th class="cell100 column2">Model</th>
-                                    <th class="cell100 column3">Owner name</th>
-                                    <th class="cell100 column4">Owner phone</th>
-                                    <th class="cell100 column5">Arrival date</th>
-                                    <th class="cell100 column6">In Hour</th>
-                                    <th class="cell100 column7">Out Hour</th>
-                                    <th class="cell100 column8">Edit</th>
-                                </tr>
-                            </thead>
-                        </table>
+            <div class="container-table100">
+                <div class="wrap-table100">
+                    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for plate number.." title="Type in a name"><br>
+                    <div class="table100 ver2 m-b-110">
+                        <div class="table100-head">
+                            <table >
+                                <thead>
+                                    <tr class="row100 head">
+                                        <th class="cell100 column1">Plate number</th>
+                                        <th class="cell100 column2">Model</th>
+                                        <th class="cell100 column3">Owner name</th>
+                                        <th class="cell100 column4">Owner phone</th>
+                                        <th class="cell100 column5">Arrival date</th>
+                                        <th class="cell100 column6">In Hour</th>
+                                        <th class="cell100 column7">Out Hour</th>
+                                        <th class="cell100 column8">
+                                                <div class="inblock" >Delete
+                                                    <i id="deleteSelect" class="fa fa-check"></i>
+                                                </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table100-body js-pscroll">
+                            <table id="myTable">
+                                <tbody>
+                                    {{{listVehicles list}}}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-                    <div class="table100-body js-pscroll">
-                        <table>
-                            <tbody>
-                                <tr class="row100 body">
-                                    <td class="cell100 column1">MLJ974</td>
-                                    <td class="cell100 column2">1994</td>
-                                    <td class="cell100 column3">EDWARD CALDERON</td>
-                                    <td class="cell100 column4">3004519629</td>
-                                    <td class="cell100 column5">14-05-2019</td>
-                                    <td class="cell100 column6">1:30</td>
-                                    <td class="cell100 column7">9:99</td>
-                                    <td class="cell100 column8">
-                                        <div class="inblock">
-                                            <i id="edit" class="fa fa-pencil"></i>
-                                            <i id="delete" class="fa fa-trash"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr class="row100 body">
-                                    <td class="cell100 column1">XXX666</td>
-                                    <td class="cell100 column2">1000AC</td>
-                                    <td class="cell100 column3">LUCIFER SANTOS</td>
-                                    <td class="cell100 column4">666999333</td>
-                                    <td class="cell100 column5">21-21-12</td>
-                                    <td class="cell100 column6">6:66</td>
-                                    <td class="cell100 column7">9:99</td>
-                                    <td class="cell100 column8">
-                                        <div class="inblock">
-                                            <i id="edit" class="fa fa-pencil" ></i>
-                                            <i id="delete" class="fa fa-trash"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {{{listVehicles list}}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>    
-        </div>
+                </div>    
+            </div>
         </div>
         <div class="container">
-
-            <form id="booking-form" class="booking-form" method="POST" action="/parking">
+            <form id="booking-form" class="booking-form" method="post" action="/parking">
                 <div class="form-group">
                     <div class="form-destination">
                         <label for="destination">Plate number</label>
@@ -112,7 +83,7 @@
                     </div>
                     <div class="form-date-from form-icon">
                         <label for="date_from">Arrival date</label>
-                        <input type="text" id="arrivalDate" name="arrivalDate" class="arrivalDate" placeholder="Pick " />
+                        <input type="date" id="arrivalDate" name="arrivalDate" class="arrivalDate" placeholder="Pick " />
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-date-to form-icon">
@@ -126,51 +97,122 @@
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-submit">
-                        <input type="submit" id="submit" class="submit" value="Enter" />
+                        <button type="submit" id="submit" class="submit">ENTER</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-  <!-- delete Modal-->
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-animate-top w3-card-4">
-      <header class="w3-container w3-teal"> 
-        <span onclick="document.getElementById('id01').style.display='none'" 
-        class="w3-button w3-display-topright">&times;</span>
-        <h2>Warnning, do you want to delete a entry?</h2>
-      </header>
-      <div class="w3-container">
-        <button class="w3-red">Cancel</button>
-        <button class="w3-green">Procced</button>
-      </div>
+      <!-- delete Modal-->
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+          <header class="w3-container w3-teal"> 
+            <span onclick="document.getElementById('id01').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Warnning, do you want to delete a entry?</h2>
+          </header>
+          <div class="w3-container">
+            <button class="w3-red">Cancel</button>
+            <button id="selectChange" class="w3-green">Procced</button>
+          </div>
+        </div>
     </div>
-  </div>
+          <!-- delete select Modal-->
+    <div id="id01" class="w3-modalSelect">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+          <header class="w3-container w3-teal"> 
+            <span onclick="document.getElementById('id01').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Warnning, do you want to delete multiple entries?</h2>
+          </header>
+          <div class="w3-container">
+            <button class="w3-red">Cancel</button>
+            <button id="selectChange" class="w3-greenSelect">Procced</button>
+          </div>
+        </div>
+    </div>
 
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
     <script src="js/notify.min.js"></script>
     <script src="js/main.js"></script>
+
     <script>
-        
+    function search() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+
+    <script>       
         $(function(){
             let apiUrl = 'http://localhost:5000'
             let id = ""
+            let listIds = []
             $.notify("Testing server connection ...",{className:"info", position:"right bottom"})
             $.get(apiUrl + '/parking')
                 .done(() => $.notify( "Conection stablished", {className:"success", position:"right bottom"}))
                 .fail(() => $.notify('Conection FAILED',{className:"error", position:"right bottom"}))
+
+            // $("#submit").on('click', function(){
+            //     let np = $("#plateNumber").val()
+            //     let md = $("#model").val()
+            //     let own = $("#ownerName").val()
+            //     let owp = $("#ownerPhone").val()
+            //     let arrd = $("#arrivalDate").val()
+            //     let inh = $("#inHour").val()
+            //     let outh = $("#outHour").val()
+            //     // let data = `plateNumber:${np},model:${md},ownerNme:${own},ownerPhone:${owp},arrivalDate:${arrd},inHour:${inh},outHour"="${outh}`
+            //     let data = `plateNumber=${np}&model=${md}&ownerNme=${own}&ownerPhone=${owp}&arrivalDate=${arrd}&inHour=${inh}&outHour=${outh}`
+            //     var xhr = new XMLHttpRequest();
+            //     xhr.open('POST', `/parking?${data}`, true);
+            //     var a = performance.now();
+            //     xhr.send(); 
+            //     var b = performance.now();
+            //     console.log('It took ' + (b - a) + ' ms.');
+            //     xhr.onreadystatechange = function() { // (3)
+            //       if (xhr.readyState != 4) return;                
+            //       if (xhr.status != 200) {
+            //         console.log(xhr.status + ': ' + xhr.statusText);
+            //       } else {
+            //         console.log(xhr.status);
+            //         console.log(xhr.responseText);
+            //       }
+            //     }
+            // })     
+            
             $(".fa.fa-trash").on('click', function(){
                 id = $(this).data("id")    
-                console.log(id)      
+                console.log(id)   
+                $('#selectChange').attr("class","w3-green")   
                 $('.w3-modal').show()                
             }) 
+            $("#deleteSelect").on('click', function(){  
+                let ids = $(".check:checkbox").filter(":checked")   
+                Array.prototype.forEach.call(ids, function(el) {
+                    listIds.push(el.getAttribute('data-id'));
+                });
+                console.log(listIds)  
+                $('.w3-modalSelect').show()           
+            })
             $(".fa.fa-pencil").on('click', function(){   
                 id = $(this).data("id")   
-                $('#plateNumber').val(this.plateNumber)
-                console.log(id)   
                 let rowdata = $(this).parent().parent().parent().children()   
                 let extractedData = []  
                 Array.prototype.forEach.call(rowdata, function(el) {
@@ -183,35 +225,13 @@
                 let arrd = $("#arrivalDate").val(extractedData[4])
                 let inh = $("#inHour").val(extractedData[5])
                 let outh = $("#outHour").val(extractedData[6])
-                $("#booking-form").attr('class',`edit-form`)
+                // $("#booking-form").attr('class',`edit-form`)
                 $("#booking-form").attr('action'," ")
                 $("#booking-form").attr('method'," ")
                 //$(".form-submit").append(`<input type="hidden" name="_method" value="PUT"/>`)
-                $("#submit").attr('value',"EDIT")
-                // $("#submit").attr('type'," ")
-                // $("#submit").attr('class'," ")
-                $("#submit").on('click', function(){
-                    let query = `plateNumber=${np}&model=${md}&ownerName=${own}&ownerPhone=${owp}&arrivalDate=${arrd}&inHour=${inh}&outHour=${outh}`
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('put', `/parking/${id}&${query}`, true);
-                    var a = performance.now();
-                    xhr.send(); 
-                    var b = performance.now();
-                    console.log('It took ' + (b - a) + ' ms.');
-                    xhr.onreadystatechange = function() { // (3)
-                      if (xhr.readyState != 4) return;                
-                      if (xhr.status != 200) {
-                        console.log(xhr.status + ': ' + xhr.statusText);
-                      } else {
-                        console.log(xhr.status);
-                        console.log(xhr.responseText);
-                      }
-                    }
-                 })
-
-
-                           
-                
+                $("#submit").text("EDIT")
+                $("#submit").attr('class',"submitEdit")
+                $("#submit").removeAttr('type')     
             }) 
             $(".w3-green").on('click', function(){
                 var xhr = new XMLHttpRequest();
@@ -232,11 +252,37 @@
                 $('.w3-modal').hide() 
                 setTimeout(function(){ 
                     window.location.href = '/';
-                }, 1500);
+                }, 500);
                                   
             })
+            $(".w3-greenSelect").on('click', function(ids){
+                listIds.forEach(idin => {
+                    let idto = parseInt(idin)
+                    console.log(idto)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('delete', `/parking/${idto}`, true);
+                    var a = performance.now();
+                    xhr.send(); 
+                    var b = performance.now();
+                    console.log('It took ' + (b - a) + ' ms.');
+                    xhr.onreadystatechange = function() { // (3)
+                      if (xhr.readyState != 4) return;                
+                      if (xhr.status != 200) {
+                        console.log(xhr.status + ': ' + xhr.statusText);
+                      } else {
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                      }
+                    }
+                })
+                $('.w3-modalSelect').hide() 
+                setTimeout(function(){ 
+                    window.location.href = '/';
+                }, 1500);                          
+            })
             $(".w3-red").on('click', function(){
-               $('.w3-modal').hide()                     
+               $('.w3-modal').hide()
+               $('.w3-modalSelect').hide()                  
             })
             $(".reload").on('click', function(){
                window.location.href = '/';                   

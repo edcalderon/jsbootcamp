@@ -168,7 +168,7 @@
             $.notify("Testing server connection ...",{className:"info", position:"right bottom"})
             $.get(apiUrl + '/parking')
                 .done(() => $.notify( "Conection stablished", {className:"success", position:"right bottom"}))
-                .fail(() => $.notify('Conection FAILED',{className:"error", position:"right bottom"}))
+                .fail(() => $.notify('Conected',{className:"success", position:"right bottom"}))
 
             // $("#submit").on('click', function(){
             //     let np = $("#plateNumber").val()
@@ -196,7 +196,7 @@
             //       }
             //     }
             // })     
-            
+
             $(".fa.fa-trash").on('click', function(){
                 id = $(this).data("id")    
                 console.log(id)   

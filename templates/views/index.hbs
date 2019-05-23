@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Parking app</title>
+    <title>My Awesome Parking app</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -28,13 +28,26 @@
         <div class="limiter">
             <div class="container-table100">
                 <div class="wrap-table100">
+                    sort by:
+                    <select id="select" >
+                          <option value="plateNumber" id="number">plate Number</option>
+                          <option value="model" id="mod">Model</option>
+                          <option value="ownerName" id="name" >Owner name</option>
+                          <option value="ownerPhone" id="phone" >Owner phone</option>
+                          <option value="arrivalDate" id="date" >Arrival date</option>
+                          <option value="inHour" id="in" >In Hour</option>
+                          <option value="outHour" id="out" >Out Hour</option>
+                    </select>  
+                    create fake users:                               
+                    <i class="fa fa-male" aria-hidden="true"></i>
+
                     <input type="text" id="myInput" onkeyup="search()" placeholder="Search for plate number.." title="Type in a name"><br>
                     <div class="table100 ver2 m-b-110">
                         <div class="table100-head">
-                            <table >
+                            <table class="table" id='table'>
                                 <thead>
                                     <tr class="row100 head">
-                                        <th class="cell100 column1">Plate number</th>
+                                        <th scope="col"   class="cell100 column1">Plate number</th>
                                         <th class="cell100 column2">Model</th>
                                         <th class="cell100 column3">Owner name</th>
                                         <th class="cell100 column4">Owner phone</th>
@@ -42,8 +55,8 @@
                                         <th class="cell100 column6">In Hour</th>
                                         <th class="cell100 column7">Out Hour</th>
                                         <th class="cell100 column8">
-                                                <div class="inblock" >Delete
-                                                    <i id="deleteSelect" class="fa fa-check"></i>
+                                                <div class="inblock" >Delete                                                  
+                                                    <i id="deleteSelect" class="fa fa-trash"></i>
                                                 </div>
                                         </th>
                                     </tr>
@@ -52,8 +65,10 @@
                         </div>
                         <div class="table100-body js-pscroll">
                             <table id="myTable">
-                                <tbody>
-                                    {{{listVehicles list}}}
+                               <tbody>
+
+                                    <!-- {{{listVehicles list sort}}} -->
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -62,7 +77,7 @@
             </div>
         </div>
         <div class="container">
-            <form id="booking-form" class="booking-form" method="post" action="/parking">
+            <form id="booking-form" class="booking-form" >
                 <div class="form-group">
                     <div class="form-destination">
                         <label for="destination">Plate number</label>
@@ -71,8 +86,7 @@
                     <div class="form-destination">
                         <label for="destination">Model</label>
                         <input type="text" id="model" name="model" placeholder="EG. 2006" />
-                    </div>
-                    
+                    </div>             
                     <div class="form-destination2">
                         <label for="destination">Owner name</label>
                         <input type="text" id="ownerName" name="ownerName" placeholder="EG. Pepito perez" />
@@ -97,13 +111,14 @@
                         <!-- <span class="icon"><i class="zmdi zmdi-calendar-alt"></i></span> -->
                     </div>
                     <div class="form-submit">
-                        <button type="submit" id="submit" class="submit">ENTER</button>
+                        <button type="button" id="submit" class="submit">ENTER</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
+    <!-- backtop button -->
+    <a id="buttonTop"></a>
       <!-- delete Modal-->
     <div id="id01" class="w3-modal">
         <div class="w3-modal-content w3-animate-top w3-card-4">
@@ -129,6 +144,21 @@
           <div class="w3-container">
             <button class="w3-red">Cancel</button>
             <button id="selectChange" class="w3-greenSelect">Procced</button>
+          </div>
+        </div>
+    </div>
+              <!-- fake select Modal-->
+    <div id="id01" class="w3-modalFake">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+          <header class="w3-container w3-teal"> 
+            <span onclick="document.getElementById('id01').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>How many fakes do you want?</h2>
+            <input id="fakestimes" name="fakes"/>
+          </header>
+          <div class="w3-container">
+            <button class="w3-red">Cancel</button>
+            <button id="selectChange" class="w3-greenFake">Procced</button>
           </div>
         </div>
     </div>
@@ -168,36 +198,66 @@
             $.notify("Testing server connection ...",{className:"info", position:"right bottom"})
             $.get(apiUrl + '/parking')
                 .done(() => $.notify( "Conection stablished", {className:"success", position:"right bottom"}))
-                .fail(() => $.notify('Conected',{className:"success", position:"right bottom"}))
-
-            // $("#submit").on('click', function(){
-            //     let np = $("#plateNumber").val()
-            //     let md = $("#model").val()
-            //     let own = $("#ownerName").val()
-            //     let owp = $("#ownerPhone").val()
-            //     let arrd = $("#arrivalDate").val()
-            //     let inh = $("#inHour").val()
-            //     let outh = $("#outHour").val()
-            //     // let data = `plateNumber:${np},model:${md},ownerNme:${own},ownerPhone:${owp},arrivalDate:${arrd},inHour:${inh},outHour"="${outh}`
-            //     let data = `plateNumber=${np}&model=${md}&ownerNme=${own}&ownerPhone=${owp}&arrivalDate=${arrd}&inHour=${inh}&outHour=${outh}`
-            //     var xhr = new XMLHttpRequest();
-            //     xhr.open('POST', `/parking?${data}`, true);
-            //     var a = performance.now();
-            //     xhr.send(); 
-            //     var b = performance.now();
-            //     console.log('It took ' + (b - a) + ' ms.');
-            //     xhr.onreadystatechange = function() { // (3)
-            //       if (xhr.readyState != 4) return;                
-            //       if (xhr.status != 200) {
-            //         console.log(xhr.status + ': ' + xhr.statusText);
-            //       } else {
-            //         console.log(xhr.status);
-            //         console.log(xhr.responseText);
-            //       }
-            //     }
-            // })     
-
-            $(".fa.fa-trash").on('click', function(){
+                .fail(() => $.notify('Conectenion Failed',{className:"Error", position:"right bottom"}))
+            $.ajax({
+                  method: "GET",
+                  url: "/parking"
+                })
+                .done(function( veh ) {
+                    veh.forEach( vehc => {
+                        $('tbody').append(`<tr class="row100 body" data-id=${vehc.id}>
+                        <td scope="row" class="cell100 column1">${vehc.plateNumber}</td>
+                        <td class="cell100 column2">${vehc.model}</td>
+                        <td class="cell100 column3">${vehc.ownerName}</td>
+                        <td class="cell100 column4">${vehc.ownerPhone}</td>
+                        <td class="cell100 column5">${vehc.arrivalDate}</td>
+                        <td class="cell100 column6">${vehc.inHour}</td>
+                        <td class="cell100 column7">${vehc.outHour}</td>
+                        <td class="cell100 column8">
+                            <div class="inblock" >
+                                <i id="edit" data-id=${vehc.id} class="fa fa-pencil" ></i>
+                                <i id="delete" data-id=${vehc.id} class="fa fa-trash"></i>
+                                <input type="checkbox" data-id=${vehc.id} class="check"/> 
+                            </div>
+                        </td>
+                        </tr>`)   
+                    })
+            });
+            $("#submit").on('click', function(){
+                let np = $("#plateNumber").val()
+                let md = $("#model").val()
+                let own = $("#ownerName").val()
+                let owp = $("#ownerPhone").val()
+                let arrd = $("#arrivalDate").val()
+                let inh = $("#inHour").val()
+                let outh = $("#outHour").val()
+                $.ajax({
+                  method: "POST",
+                  url: "/parking",
+                  data: {plateNumber:np,model:md,ownerName:own,ownerPhone:owp,arrivalDate:arrd,inHour:inh,outHour:outh}
+                })
+                .done(function( veh ) {
+                    // console.log( "Data Saved: " + veh);                
+                    $('tbody').append(`<tr class="row100 body" data-id=${veh.data.id}>
+                    <td scope="row" class="cell100 column1">${veh.data.plateNumber}</td>
+                    <td class="cell100 column2">${veh.data.model}</td>
+                    <td class="cell100 column3">${veh.data.ownerName}</td>
+                    <td class="cell100 column4">${veh.data.ownerPhone}</td>
+                    <td class="cell100 column5">${veh.data.arrivalDate}</td>
+                    <td class="cell100 column6">${veh.data.inHour}</td>
+                    <td class="cell100 column7">${veh.data.outHour}</td>
+                    <td class="cell100 column8">
+                        <div class="inblock" >
+                            <i id="edit" data-id=${veh.data.id} class="fa fa-pencil" ></i>
+                            <i id="delete" data-id=${veh.data.id} class="fa fa-trash"></i>
+                            <input type="checkbox" data-id=${veh.data.id} class="check"/> 
+                        </div>
+                    </td>
+                    </tr>`)               
+                });
+            })    
+            $("#delete").on('click', function(){
+                alert("hola")
                 id = $(this).data("id")    
                 console.log(id)   
                 $('#selectChange').attr("class","w3-green")   
@@ -252,20 +312,33 @@
                 $('.w3-modal').hide() 
                 setTimeout(function(){ 
                     window.location.href = '/';
-                }, 500);
-                                  
+                }, 500);                                 
             })
             $(".w3-greenSelect").on('click', function(ids){
                 listIds.forEach(idin => {
                     let idto = parseInt(idin)
                     console.log(idto)
+                    $.ajax({
+                      method: "DELETE",
+                      url: `/parking/${idto}`              
+                    })
+                    .done(function( veh ){
+                        console.log(veh)
+                        $(`tbody tr[data-id=${veh.id}]`).remove();                      
+                    })
+                })
+                $('.w3-modalSelect').hide()                                        
+            })
+            $(".w3-greenFake").on('click', function(){
+                var times = $("#fakestimes").val()
+                for(i=0;i<times;i++){
                     var xhr = new XMLHttpRequest();
-                    xhr.open('delete', `/parking/${idto}`, true);
+                    xhr.open('get', `/?fake="true"`, true);
                     var a = performance.now();
                     xhr.send(); 
                     var b = performance.now();
                     console.log('It took ' + (b - a) + ' ms.');
-                    xhr.onreadystatechange = function() { // (3)
+                    xhr.onreadystatechange = function() { 
                       if (xhr.readyState != 4) return;                
                       if (xhr.status != 200) {
                         console.log(xhr.status + ': ' + xhr.statusText);
@@ -274,21 +347,65 @@
                         console.log(xhr.responseText);
                       }
                     }
-                })
-                $('.w3-modalSelect').hide() 
+                }    
+                $('.w3-modalFake').hide() 
                 setTimeout(function(){ 
-                    window.location.href = '/';
-                }, 1500);                          
+                        window.location.href = '/';
+                }, 1500);                                       
             })
             $(".w3-red").on('click', function(){
                $('.w3-modal').hide()
-               $('.w3-modalSelect').hide()                  
+               $('.w3-modalSelect').hide()
+               $('.w3-modalFake').hide()                     
             })
             $(".reload").on('click', function(){
                window.location.href = '/';                   
             })
+
+            //back top              
+            var btn = $('#buttonTop');
+            $(window).scroll(function() {  
+                if ($(window).scrollTop() > 10) {
+                  btn.css({visibility:'visible'})
+                } else {
+                  btn.css({visibility:'hidden'})
+                }
+            });
+            btn.on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({scrollTop:0}, '200');
+            });
+
+            //Sort the table
+            $('#select').click(function() {
+                let des = $('#select').find(":selected").text();
+                console.log(des)
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', `/?sort=${des}`, true);
+                var a = performance.now();
+                xhr.send(); 
+                var b = performance.now();
+                console.log('It took ' + (b - a) + ' ms.');
+                xhr.onreadystatechange = function() { 
+                  if (xhr.readyState != 4) return;                
+                  if (xhr.status != 200) {
+                    console.log(xhr.status + ': ' + xhr.statusText);
+                  } else {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                  }
+                setTimeout(function(){ 
+                    window.location.href = '/';
+                }, 3000); 
+                }
+            });
+            //fake user
+            $('.fa.fa-male').click(function() {
+                $('.w3-modalFake').show() 
+            });
         })        
     </script>
+   
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

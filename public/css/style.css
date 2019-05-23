@@ -135,6 +135,14 @@ input, select, textarea {
   -o-appearance: unset !important;
   -ms-appearance: unset !important; }
 
+select{
+  border-radius: 8%;
+      margin:40px;
+    background: rgba(0,0,0,0.3);
+    color:#fff;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+}  
+
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   appearance: none !important;
   -moz-appearance: none !important;
@@ -185,6 +193,40 @@ img {
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
+}
+#buttonTop {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  margin: 30px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s;
+  z-index: 1000;
+  transition: background-color .3s, 
+  opacity: 0;
+  
+}
+
+#buttonTop:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#buttonTop:active {
+  background-color: #555;
+}
+#buttonTop::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
 }
 
 figure {
@@ -311,6 +353,16 @@ input {
   .submit:hover {
     background-color: #ce9906; }
 
+ .submitbtn {
+  background: #f8ba0f;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 23px;
+  padding: 15px 20px;
+  cursor: pointer; }
+  .submitbtn:hover {
+    background-color: #ce9906; }   
+
 .submitEdit {
   background: #0066ff;
   color: #fff;
@@ -318,7 +370,7 @@ input {
   margin-top: 23px;
   padding: 15px 20px;
   cursor: pointer; }
-  .submit:hover {
+  .submitEdit:hover {
     background-color: #ce9906; }
 label {
   font-size: 12px;

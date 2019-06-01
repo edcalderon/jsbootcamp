@@ -5,15 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx gulp styles scripts"
+    "build": "npx gulp styles scripts browserSync"
   },
   "keywords": [],
   "author": "ed",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.26.5",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0"
   }
 }
